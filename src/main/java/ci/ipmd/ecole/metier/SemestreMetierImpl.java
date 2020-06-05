@@ -3,10 +3,12 @@ package ci.ipmd.ecole.metier;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ci.ipmd.ecole.dao.SemestreRepository;
 import ci.ipmd.ecole.entites.Semestre;
 
+@Service
 public class SemestreMetierImpl implements ISemestreMetier{
 @Autowired
 private SemestreRepository semestreRepository;
