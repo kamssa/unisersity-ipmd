@@ -8,6 +8,7 @@ public class Matiere {
 
 	@Id
 	private String id;
+	
 	private String libelle;
 	private String code;
 	private int credit;
@@ -18,6 +19,12 @@ public class Matiere {
 		super();
 	}
 	
+	public Matiere(String libelle, String description) {
+		super();
+		this.libelle = libelle;
+		this.description = description;
+	}
+
 	public Matiere(String libelle, String code, int credit) {
 		super();
 		this.libelle = libelle;
@@ -70,6 +77,5 @@ public class Matiere {
 	public void setNombreHeure(int nombreHeure) {
 		this.nombreHeure = nombreHeure;
 	}
-	
 	
 }
