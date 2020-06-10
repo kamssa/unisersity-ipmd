@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ci.ipmd.ecole.dao.MatiereRepository;
 import ci.ipmd.ecole.entites.Matiere;
 
@@ -35,19 +34,16 @@ public class MatiereMetier implements IMatiereMetier{
 
 	@Override
 	public boolean supprimer(String id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean supprimer(List<Matiere> entites) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean existe(String id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
