@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ci.ipmd.ecole.dao.RoleRepository;
+import ci.ipmd.ecole.entites.ERole;
 import ci.ipmd.ecole.entites.Role;
 
 
@@ -50,8 +51,10 @@ private RoleRepository roleRepository;
 	}
 
 	@Override
-	public Role findByRoleName(String name) {
+	public Role findByName(ERole name) {
+		
 		return roleRepository.findByName(name).get();
 	}
 
+	
 }

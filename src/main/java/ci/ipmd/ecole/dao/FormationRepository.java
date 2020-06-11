@@ -6,5 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import ci.ipmd.ecole.entites.Formation;
 @RepositoryRestResource
 public interface FormationRepository extends MongoRepository<Formation, String> {
+	 Boolean existsByType(String type);
 
 }

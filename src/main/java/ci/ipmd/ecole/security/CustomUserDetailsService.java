@@ -7,7 +7,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ci.ipmd.ecole.dao.AdministrateurRepository;
 import ci.ipmd.ecole.dao.PersonneRepository;
+import ci.ipmd.ecole.entites.Administrateur;
+import ci.ipmd.ecole.entites.Etudiant;
 import ci.ipmd.ecole.entites.Personne;
 
 
@@ -15,26 +18,26 @@ import ci.ipmd.ecole.entites.Personne;
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	PersonneRepository personnesRepository;
+	PersonneRepository personneRepository;
 
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		
-		Personne user = personnesRepository.findByLogin(login)
+		Personne personne = personneRepository.findByLogin(login)
 				.orElseThrow(() -> 
 				new UsernameNotFoundException("Aucun utilisateur trouve : " + login));
 
-		return UserPrincipal.create(user);
+		return UserPrincipal.build(personne);
 	}
 
 	@Transactional
 	public UserDetails loadUserById(String id) {
 		
-		 Personne user = personnesRepository.findById(id)
+		 Personne personne = personneRepository.findById(id)
 				.orElseThrow(() -> 
 				new UsernameNotFoundException("User not found with id : " + id));
-
-		return UserPrincipal.create(user);
+          System.out.println(personne.getRoles());
+		return UserPrincipal.build(personne);
 	}
 }

@@ -4,16 +4,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Personne {
+public  class Personne {
 	@Id
 	private String id;
 	private String nom;
 	private String prenom;
+	@Indexed(unique=true)
 	private String login;
+	@Indexed(unique=true)
     private String email;
     private String password;
     @DBRef
@@ -84,6 +87,12 @@ public class Personne {
 	}
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	@Override
+	public String toString() {
+		return "Personne [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", login=" + login + ", email=" + email
+				+ ", password=" + password + ", roles=" + roles + "]";
 	}
     
 }

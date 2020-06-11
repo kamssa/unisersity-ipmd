@@ -23,6 +23,12 @@ public class Filiere {
 		super();
 	}
 	
+	public Filiere(String libelle, String description) {
+		super();
+		this.libelle = libelle;
+		this.description = description;
+	}
+
 	public Filiere(String libelle, String description, Formation formation) {
 		super();
 		this.libelle = libelle;

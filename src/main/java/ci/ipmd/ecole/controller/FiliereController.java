@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,13 +13,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import ci.ipmd.ecole.entites.Filiere;
-import ci.ipmd.ecole.entites.Formation;
 import ci.ipmd.ecole.metier.IFiliereMetier;
-import ci.ipmd.ecole.metier.IFormationMetier;
 import ci.ipmd.ecole.modele.Reponse;
 import ci.ipmd.ecole.utilitaire.Static;
 @RestController
+@CrossOrigin
 public class FiliereController {
 	@Autowired
 	private IFiliereMetier filiereMetier;
@@ -103,5 +106,20 @@ public class FiliereController {
 		return reponse;
 
 	}
-	
+	// supprimer une filiere par son id
+		@DeleteMapping("/filiere/{id}")
+		public Reponse<Boolean> supprimer(@PathVariable("id") String id) throws JsonProcessingException {
+
+			Reponse<Boolean> reponse = null;
+
+			try {
+
+				reponse = new Reponse<Boolean>(0, null, filiereMetier.supprimer(id));
+
+			} catch (RuntimeException e1) {
+				reponse = new Reponse<>(1, Static.getErreursForException(e1), null);
+			}
+
+			return reponse;
+		}
 }

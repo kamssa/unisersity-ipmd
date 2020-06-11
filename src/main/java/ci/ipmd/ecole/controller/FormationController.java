@@ -6,12 +6,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import ci.ipmd.ecole.entites.Formation;
 import ci.ipmd.ecole.metier.IFormationMetier;
@@ -28,11 +31,8 @@ public class FormationController {
 	@GetMapping("/formation/{id}")
 	public Reponse<Formation> getFormationById(@PathVariable String id)   {
 		Reponse<Formation> reponse;
-		System.out.println("voir les infos");
 		try {
-			System.out.println("voir les infos plus");
 			Formation formation = formationMetier.findById(id);
-			System.out.println("voir les infos de retour");
 			List<String> messages = new ArrayList<>();
 			messages.add(String.format("%s retrouvé", formation.getType()));
 			reponse = new Reponse<Formation>(0, null, formation);
@@ -108,5 +108,20 @@ public class FormationController {
 		return reponse;
 
 	}
-	
+	// supprimer une formation par son id
+	@DeleteMapping("/formation/{id}")
+	public Reponse<Boolean> supprimer(@PathVariable("id") String id) throws JsonProcessingException {
+
+		Reponse<Boolean> reponse = null;
+
+		try {
+
+			reponse = new Reponse<Boolean>(0, null, formationMetier.supprimer(id));
+
+		} catch (RuntimeException e1) {
+			reponse = new Reponse<>(1, Static.getErreursForException(e1), null);
+		}
+
+		return reponse;
+	}
 }

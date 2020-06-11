@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import ci.ipmd.ecole.entites.Administrateur;
+import ci.ipmd.ecole.entites.Etudiant;
 import ci.ipmd.ecole.entites.Personne;
 
 
@@ -39,14 +41,15 @@ public class UserPrincipal implements UserDetails {
 		this.authorities = authorities;
 	}
 
-	public static UserPrincipal create(Personne user) {
-		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+	public static UserPrincipal build(Personne personne) {
+		List<GrantedAuthority> authorities = personne.getRoles().stream()
+				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
+				.collect(Collectors.toList());
 
 		return new UserPrincipal(
-				user.getId(), 
-				user.getLogin(),
-				user.getPassword(), 
+				personne.getId(), 
+				personne.getLogin(),
+				personne.getPassword(), 
 				authorities);
 	}
 

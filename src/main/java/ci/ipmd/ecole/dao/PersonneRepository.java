@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import ci.ipmd.ecole.entites.Etudiant;
 import ci.ipmd.ecole.entites.Personne;
 
 @RepositoryRestResource
@@ -17,7 +18,7 @@ public interface PersonneRepository extends MongoRepository<Personne, String> {
 
 	    Optional<Personne> findByLogin(String username);
 
-	    Boolean existsByLogin(String username);
+	    Boolean existsByLogin(String login);
 
 	    Boolean existsByEmail(String email);
 }

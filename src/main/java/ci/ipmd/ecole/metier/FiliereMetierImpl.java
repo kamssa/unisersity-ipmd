@@ -35,7 +35,8 @@ private FiliereRepository filireRepository;
 
 	@Override
 	public boolean supprimer(String id) {
-		return false;
+		 filireRepository.deleteById(id);
+		 return true;
 	}
 
 	@Override
