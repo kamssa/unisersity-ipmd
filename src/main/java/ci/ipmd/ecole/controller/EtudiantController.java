@@ -68,13 +68,13 @@ public class EtudiantController {
 				String jwt = tokenProvider.generateToken(authentication);
 				
 				UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();		
-				List<String> roles = userDetails.getAuthorities().stream()
+				/*List<String> roles = userDetails.getAuthorities().stream()
 						.map(item -> item.getAuthority())
-						.collect(Collectors.toList());
+						.collect(Collectors.toList());*/
 
 				return ResponseEntity.ok(new JwtResponse(jwt, 
 														 userDetails.getId(), 
-														 userDetails.getLogin(), roles));
+														 userDetails.getLogin()));
 			}
 
 		@PostMapping("/etudiantup")

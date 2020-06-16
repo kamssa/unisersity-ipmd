@@ -1,6 +1,7 @@
 package ci.ipmd.ecole.metier;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ private RoleRepository roleRepository;
 	
 @Override
 	public Role creer(Role entity) {
-		return null;
+		return roleRepository.save(entity);
 	}
 
 	@Override
@@ -54,6 +55,11 @@ private RoleRepository roleRepository;
 	public Role findByName(ERole name) {
 		
 		return roleRepository.findByName(name).get();
+	}
+
+	@Override
+	public Role findByCode(int code) {
+		return roleRepository.findByCode(code).get();
 	}
 
 	

@@ -12,4 +12,6 @@ import ci.ipmd.ecole.entites.Role;
 @RepositoryRestResource
 public interface RoleRepository extends MongoRepository<Role, String> {
 	  Optional<Role> findByName(ERole name);
+	  Optional<Role> findByCode(int code);
+	  
 }

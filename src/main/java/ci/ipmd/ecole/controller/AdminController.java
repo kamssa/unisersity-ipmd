@@ -1,9 +1,7 @@
 package ci.ipmd.ecole.controller;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +27,6 @@ import ci.ipmd.ecole.metier.IRoleMetier;
 import ci.ipmd.ecole.modele.JwtResponse;
 import ci.ipmd.ecole.modele.LoginRequest;
 import ci.ipmd.ecole.modele.MessageResponse;
-import ci.ipmd.ecole.modele.Reponse;
 import ci.ipmd.ecole.modele.SignupRequest;
 import ci.ipmd.ecole.security.JwtTokenProvider;
 import ci.ipmd.ecole.security.UserPrincipal;
@@ -50,8 +47,8 @@ public class AdminController {
 	@Autowired
 	PasswordEncoder encoder;
 	
-	// athentifer un etudiant
-		@PostMapping("/adminin")
+	// authentifier un admin
+		@PostMapping("/signin")
 		public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 						Authentication authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getLogin(), loginRequest.getPassword()));
@@ -60,16 +57,16 @@ public class AdminController {
 			String jwt = tokenProvider.generateToken(authentication);
 			
 			UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();		
-			List<String> roles = userDetails.getAuthorities().stream()
+		/*	List<String> roles = userDetails.getAuthorities().stream()
 					.map(item -> item.getAuthority())
-					.collect(Collectors.toList());
+					.collect(Collectors.toList());*/
 
 			return ResponseEntity.ok(new JwtResponse(jwt, 
 													 userDetails.getId(), 
-													 userDetails.getLogin(), roles));
+													 userDetails.getLogin()));
 		}
 
-	@PostMapping("/adminup")
+	@PostMapping("/signup")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ResponseEntity<?> register(@RequestBody SignupRequest signUpRequest) throws Exception {
 		
@@ -85,7 +82,8 @@ public class AdminController {
 		Set<Role> roles = new HashSet<>();
 
 		if (strRoles == null) {
-			Role userRole = roleMetier.findByName(ERole.ROLE_ADMIN);
+			
+			Role userRole = roleMetier.findByName(ERole.ROLE_MODERATOR);
 					
 			roles.add(userRole);
 		} else {

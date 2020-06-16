@@ -4,10 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import ci.ipmd.ecole.dao.AdministrateurRepository;
 import ci.ipmd.ecole.dao.PersonneRepository;
-import ci.ipmd.ecole.entites.Administrateur;
 import ci.ipmd.ecole.entites.Personne;
 import ci.ipmd.ecole.exception.InvalideipmdException;
 
@@ -22,22 +19,18 @@ public class AdministrateurMetierImpl implements IAdministrateurMetier {
 	}
 	@Override
 	public Personne modifier(Personne entity) throws InvalideipmdException {
-		// TODO Auto-generated method stub
 		return personneRepository.save(entity);
 	}
 	@Override
 	public List<Personne> findAll() {
-		// TODO Auto-generated method stub
 		return personneRepository.findAll();
 	}
 	@Override
 	public Personne findById(String id) {
-		// TODO Auto-generated method stub
 		return personneRepository.findById(id).get();
 	}
 	@Override
 	public boolean supprimer(String id) {
-		// TODO Auto-generated method stub
 		 personneRepository.deleteById(id);
 		 return true;
 	}

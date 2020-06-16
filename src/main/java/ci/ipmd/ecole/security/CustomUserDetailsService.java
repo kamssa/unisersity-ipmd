@@ -6,11 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import ci.ipmd.ecole.dao.AdministrateurRepository;
 import ci.ipmd.ecole.dao.PersonneRepository;
-import ci.ipmd.ecole.entites.Administrateur;
-import ci.ipmd.ecole.entites.Etudiant;
 import ci.ipmd.ecole.entites.Personne;
 
 

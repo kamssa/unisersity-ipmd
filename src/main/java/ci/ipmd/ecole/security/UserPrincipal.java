@@ -1,18 +1,17 @@
 package ci.ipmd.ecole.security;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import ci.ipmd.ecole.entites.Administrateur;
-import ci.ipmd.ecole.entites.Etudiant;
 import ci.ipmd.ecole.entites.Personne;
+import ci.ipmd.ecole.entites.Role;
 
 
 
@@ -27,6 +26,7 @@ public class UserPrincipal implements UserDetails {
 	@JsonIgnore
 	private String password;
 	private Collection<? extends GrantedAuthority> authorities;
+	
 
 	public UserPrincipal() {
 		super();
@@ -43,7 +43,7 @@ public class UserPrincipal implements UserDetails {
 
 	public static UserPrincipal build(Personne personne) {
 		List<GrantedAuthority> authorities = personne.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
+				.map(role -> new SimpleGrantedAuthority(String.valueOf(role.getCode())))
 				.collect(Collectors.toList());
 
 		return new UserPrincipal(
@@ -69,7 +69,6 @@ public class UserPrincipal implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return password;
 	}
 
@@ -107,6 +106,8 @@ public class UserPrincipal implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
+
+	
 
 	@Override
 	public int hashCode() {

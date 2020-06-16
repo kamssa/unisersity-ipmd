@@ -12,7 +12,9 @@ import org.springframework.context.annotation.Bean;
 
 import ci.ipmd.ecole.dao.FiliereRepository;
 import ci.ipmd.ecole.dao.FormationRepository;
+import ci.ipmd.ecole.dao.PersonneRepository;
 import ci.ipmd.ecole.dao.RoleRepository;
+import ci.ipmd.ecole.entites.Administrateur;
 import ci.ipmd.ecole.entites.Filiere;
 import ci.ipmd.ecole.entites.Formation;
 import ci.ipmd.ecole.entites.Role;
@@ -28,16 +30,16 @@ public class EcoleWebMetierDaoJpaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EcoleWebMetierDaoJpaApplication.class, args);
 	}
-	@Bean
-	   CommandLineRunner start(FormationRepository formationRepository,
-			   FiliereRepository filiereRepository) {
+	/*@Bean
+	   CommandLineRunner start(PersonneRepository personneRepository,
+			   RoleRepository roleRepository) {
 		return args ->{
-			filiereRepository.deleteAll();  
+			roleRepository.deleteAll();  
 			Stream.of("IDA").forEach(d->{
 				//formationRepository.save(new Formation("init", "DESC"));
-				filiereRepository.save(new Filiere(d,"c'est pour les experts"));
+				roleRepository.save(new Role());
 			});
-			filiereRepository.findAll().forEach(System.out::println);
+			personneRepository.findAll().forEach(System.out::println);
 		};
-	}
+	}*/
 }
