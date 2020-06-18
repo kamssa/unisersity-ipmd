@@ -7,15 +7,24 @@ import org.springframework.stereotype.Service;
 
 import ci.ipmd.ecole.dao.FiliereRepository;
 import ci.ipmd.ecole.entites.Filiere;
+import ci.ipmd.ecole.entites.Formation;
+import ci.ipmd.ecole.exception.InvalideipmdException;
 
 @Service
 public class FiliereMetierImpl implements IFiliereMetier {
 @Autowired
 private FiliereRepository filireRepository;
 	@Override
-	public Filiere creer(Filiere entity) {
+	public Filiere creer(Filiere f) throws InvalideipmdException{
 		
-		return filireRepository.save(entity);
+	if ((f.getLibelle().equals(null)) || (f.getLibelle() == "")) {
+				throw new InvalideipmdException("Le libelle ne peut etre null");
+			}
+	if ((f.getFormation().getType().equals(null)) || (f.getFormation().getType() == "")) {
+		throw new InvalideipmdException("La formation ne peut etre null");
+	}
+			
+			return filireRepository.save(f);
 	}
 
 	@Override

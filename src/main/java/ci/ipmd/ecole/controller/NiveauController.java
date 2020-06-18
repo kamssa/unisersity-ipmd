@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import ci.ipmd.ecole.entites.Niveau;
 import ci.ipmd.ecole.metier.INiveauMetier;
 import ci.ipmd.ecole.modele.Reponse;
@@ -23,10 +21,10 @@ import ci.ipmd.ecole.utilitaire.Static;
 public class NiveauController {
 	@Autowired
 	private INiveauMetier niveauMetier;
-	
+
 	// Obtenir un niveau par son identifiant
 	@GetMapping("/niveau/{id}")
-	public Reponse<Niveau> getFormationById(@PathVariable String id)   {
+	public Reponse<Niveau> getFormationById(@PathVariable String id) {
 		Reponse<Niveau> reponse;
 		try {
 			Niveau niveau = niveauMetier.findById(id);
@@ -39,6 +37,24 @@ public class NiveauController {
 		return reponse;
 
 	}
+
+	// Obtenir un niveau par son identifiant
+	@GetMapping("/niveauLibelle")
+	public Reponse<Niveau> getNiveauByLibelle() {
+		Reponse<Niveau> reponse;
+		String libelle1 = "Licence 1 (L1)";
+		try {
+			Niveau niveau = niveauMetier.findByLibelle(libelle1).get();
+			List<String> messages = new ArrayList<>();
+			messages.add(String.format("%s retrouvé", niveau.getLibelle()));
+			reponse = new Reponse<Niveau>(0, null, niveau);
+		} catch (Exception e) {
+			reponse = new Reponse<>(1, Static.getErreursForException(e), null);
+		}
+		return reponse;
+
+	}
+
 	// creer un niveau dans la base mongo
 	@PostMapping("/niveau")
 	public Reponse<Niveau> create(@RequestBody Niveau niveau) {
@@ -57,6 +73,7 @@ public class NiveauController {
 		return reponse;
 
 	}
+
 	// faire la mise à jour d'un niveau existant
 	@PutMapping("/niveau")
 	public Reponse<Niveau> modfier(@RequestBody Niveau modif) {
@@ -84,11 +101,12 @@ public class NiveauController {
 		return reponse;
 
 	}
- ////////////////////////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////
 	// recuperer tous les niveux de la base
 	///////////////////////////////////////////////////////
 	@GetMapping("/niveau")
-    public Reponse<List<Niveau>> findAll()  {
+	public Reponse<List<Niveau>> findAll() {
 		Reponse<List<Niveau>> reponse;
 		try {
 			List<Niveau> niveaux = niveauMetier.findAll();
@@ -96,7 +114,7 @@ public class NiveauController {
 				reponse = new Reponse<List<Niveau>>(0, null, niveaux);
 			} else {
 				List<String> messages = new ArrayList<>();
-				messages.add("Pas de formation trouvée");
+				messages.add("Pas de niveau trouvée");
 				reponse = new Reponse<List<Niveau>>(1, messages, new ArrayList<>());
 			}
 		} catch (Exception e) {
@@ -105,5 +123,115 @@ public class NiveauController {
 		return reponse;
 
 	}
-	
+
+////////////////////////////////////////////////////////////
+// recuperer toutes les filieres du niveau de la base
+///////////////////////////////////////////////////////
+	@GetMapping("/lesFiliereDuNiveauL1")
+	public Reponse<List<Niveau>> findAllFiliereNiveauL1() {
+		Reponse<List<Niveau>> reponse;
+		try {
+			List<Niveau> niveaux = niveauMetier.findAllFiliereNiveauL1();
+			if (!niveaux.isEmpty()) {
+				reponse = new Reponse<List<Niveau>>(0, null, niveaux);
+			} else {
+				List<String> messages = new ArrayList<>();
+				messages.add("Pas de niveau trouvée");
+				reponse = new Reponse<List<Niveau>>(1, messages, new ArrayList<>());
+			}
+		} catch (Exception e) {
+			reponse = new Reponse<List<Niveau>>(1, Static.getErreursForException(e), new ArrayList<>());
+		}
+		return reponse;
+
+	}
+
+////////////////////////////////////////////////////////////
+//recuperer toutes les filieres du niveau de la base
+///////////////////////////////////////////////////////
+	@GetMapping("/lesFiliereDuNiveauL2")
+	public Reponse<List<Niveau>> findAllFiliereNiveauL2() {
+		Reponse<List<Niveau>> reponse;
+		try {
+			List<Niveau> niveaux = niveauMetier.findAllFiliereNiveauL2();
+			if (!niveaux.isEmpty()) {
+				reponse = new Reponse<List<Niveau>>(0, null, niveaux);
+			} else {
+				List<String> messages = new ArrayList<>();
+				messages.add("Pas de niveau trouvée");
+				reponse = new Reponse<List<Niveau>>(1, messages, new ArrayList<>());
+			}
+		} catch (Exception e) {
+			reponse = new Reponse<List<Niveau>>(1, Static.getErreursForException(e), new ArrayList<>());
+		}
+		return reponse;
+
+	}
+
+////////////////////////////////////////////////////////////
+//recuperer toutes les filieres du niveau de la base
+///////////////////////////////////////////////////////
+	@GetMapping("/lesFiliereDuNiveauL3")
+	public Reponse<List<Niveau>> findAllFiliereNiveauL3() {
+		Reponse<List<Niveau>> reponse;
+		try {
+			List<Niveau> niveaux = niveauMetier.findAllFiliereNiveauL3();
+			if (!niveaux.isEmpty()) {
+				reponse = new Reponse<List<Niveau>>(0, null, niveaux);
+			} else {
+				List<String> messages = new ArrayList<>();
+				messages.add("Pas de niveau trouvée");
+				reponse = new Reponse<List<Niveau>>(1, messages, new ArrayList<>());
+			}
+		} catch (Exception e) {
+			reponse = new Reponse<List<Niveau>>(1, Static.getErreursForException(e), new ArrayList<>());
+		}
+		return reponse;
+
+	}
+
+////////////////////////////////////////////////////////////
+//recuperer toutes les filieres du niveau de la base
+///////////////////////////////////////////////////////
+	@GetMapping("/lesFiliereDuNiveauM1")
+	public Reponse<List<Niveau>> findAllFiliereNiveauM1() {
+		Reponse<List<Niveau>> reponse;
+		try {
+			List<Niveau> niveaux = niveauMetier.findAllFiliereNiveauM1();
+			if (!niveaux.isEmpty()) {
+				reponse = new Reponse<List<Niveau>>(0, null, niveaux);
+			} else {
+				List<String> messages = new ArrayList<>();
+				messages.add("Pas de niveau trouvée");
+				reponse = new Reponse<List<Niveau>>(1, messages, new ArrayList<>());
+			}
+		} catch (Exception e) {
+			reponse = new Reponse<List<Niveau>>(1, Static.getErreursForException(e), new ArrayList<>());
+		}
+		return reponse;
+
+	}
+
+////////////////////////////////////////////////////////////
+//recuperer toutes les filieres du niveau de la base
+///////////////////////////////////////////////////////
+	@GetMapping("/lesFiliereDuNiveauM2")
+	public Reponse<List<Niveau>> findAllFiliereNiveauM2() {
+		Reponse<List<Niveau>> reponse;
+		try {
+			List<Niveau> niveaux = niveauMetier.findAllFiliereNiveauM2();
+			if (!niveaux.isEmpty()) {
+				reponse = new Reponse<List<Niveau>>(0, null, niveaux);
+			} else {
+				List<String> messages = new ArrayList<>();
+				messages.add("Pas de niveau trouvée");
+				reponse = new Reponse<List<Niveau>>(1, messages, new ArrayList<>());
+			}
+		} catch (Exception e) {
+			reponse = new Reponse<List<Niveau>>(1, Static.getErreursForException(e), new ArrayList<>());
+		}
+		return reponse;
+
+	}
+
 }

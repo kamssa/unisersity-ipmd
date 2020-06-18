@@ -7,7 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Semestre {
 
 	@Id
-private String id;
+    private String id;
+	
 	private String libelle;
 	private String description;
 	
