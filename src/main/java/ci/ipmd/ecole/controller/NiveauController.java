@@ -5,12 +5,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import ci.ipmd.ecole.entites.Niveau;
 import ci.ipmd.ecole.metier.INiveauMetier;
 import ci.ipmd.ecole.modele.Reponse;
@@ -123,115 +127,21 @@ public class NiveauController {
 		return reponse;
 
 	}
+	// supprimer un niveau par son id
+			@DeleteMapping("/niveau/{id}")
+			public Reponse<Boolean> supprimer(@PathVariable("id") String id) throws JsonProcessingException {
 
-////////////////////////////////////////////////////////////
-// recuperer toutes les filieres du niveau de la base
-///////////////////////////////////////////////////////
-	@GetMapping("/lesFiliereDuNiveauL1")
-	public Reponse<List<Niveau>> findAllFiliereNiveauL1() {
-		Reponse<List<Niveau>> reponse;
-		try {
-			List<Niveau> niveaux = niveauMetier.findAllFiliereNiveauL1();
-			if (!niveaux.isEmpty()) {
-				reponse = new Reponse<List<Niveau>>(0, null, niveaux);
-			} else {
-				List<String> messages = new ArrayList<>();
-				messages.add("Pas de niveau trouvée");
-				reponse = new Reponse<List<Niveau>>(1, messages, new ArrayList<>());
+				Reponse<Boolean> reponse = null;
+
+				try {
+
+					reponse = new Reponse<Boolean>(0, null, niveauMetier.supprimer(id));
+
+				} catch (RuntimeException e1) {
+					reponse = new Reponse<>(1, Static.getErreursForException(e1), null);
+				}
+
+				return reponse;
 			}
-		} catch (Exception e) {
-			reponse = new Reponse<List<Niveau>>(1, Static.getErreursForException(e), new ArrayList<>());
-		}
-		return reponse;
-
-	}
-
-////////////////////////////////////////////////////////////
-//recuperer toutes les filieres du niveau de la base
-///////////////////////////////////////////////////////
-	@GetMapping("/lesFiliereDuNiveauL2")
-	public Reponse<List<Niveau>> findAllFiliereNiveauL2() {
-		Reponse<List<Niveau>> reponse;
-		try {
-			List<Niveau> niveaux = niveauMetier.findAllFiliereNiveauL2();
-			if (!niveaux.isEmpty()) {
-				reponse = new Reponse<List<Niveau>>(0, null, niveaux);
-			} else {
-				List<String> messages = new ArrayList<>();
-				messages.add("Pas de niveau trouvée");
-				reponse = new Reponse<List<Niveau>>(1, messages, new ArrayList<>());
-			}
-		} catch (Exception e) {
-			reponse = new Reponse<List<Niveau>>(1, Static.getErreursForException(e), new ArrayList<>());
-		}
-		return reponse;
-
-	}
-
-////////////////////////////////////////////////////////////
-//recuperer toutes les filieres du niveau de la base
-///////////////////////////////////////////////////////
-	@GetMapping("/lesFiliereDuNiveauL3")
-	public Reponse<List<Niveau>> findAllFiliereNiveauL3() {
-		Reponse<List<Niveau>> reponse;
-		try {
-			List<Niveau> niveaux = niveauMetier.findAllFiliereNiveauL3();
-			if (!niveaux.isEmpty()) {
-				reponse = new Reponse<List<Niveau>>(0, null, niveaux);
-			} else {
-				List<String> messages = new ArrayList<>();
-				messages.add("Pas de niveau trouvée");
-				reponse = new Reponse<List<Niveau>>(1, messages, new ArrayList<>());
-			}
-		} catch (Exception e) {
-			reponse = new Reponse<List<Niveau>>(1, Static.getErreursForException(e), new ArrayList<>());
-		}
-		return reponse;
-
-	}
-
-////////////////////////////////////////////////////////////
-//recuperer toutes les filieres du niveau de la base
-///////////////////////////////////////////////////////
-	@GetMapping("/lesFiliereDuNiveauM1")
-	public Reponse<List<Niveau>> findAllFiliereNiveauM1() {
-		Reponse<List<Niveau>> reponse;
-		try {
-			List<Niveau> niveaux = niveauMetier.findAllFiliereNiveauM1();
-			if (!niveaux.isEmpty()) {
-				reponse = new Reponse<List<Niveau>>(0, null, niveaux);
-			} else {
-				List<String> messages = new ArrayList<>();
-				messages.add("Pas de niveau trouvée");
-				reponse = new Reponse<List<Niveau>>(1, messages, new ArrayList<>());
-			}
-		} catch (Exception e) {
-			reponse = new Reponse<List<Niveau>>(1, Static.getErreursForException(e), new ArrayList<>());
-		}
-		return reponse;
-
-	}
-
-////////////////////////////////////////////////////////////
-//recuperer toutes les filieres du niveau de la base
-///////////////////////////////////////////////////////
-	@GetMapping("/lesFiliereDuNiveauM2")
-	public Reponse<List<Niveau>> findAllFiliereNiveauM2() {
-		Reponse<List<Niveau>> reponse;
-		try {
-			List<Niveau> niveaux = niveauMetier.findAllFiliereNiveauM2();
-			if (!niveaux.isEmpty()) {
-				reponse = new Reponse<List<Niveau>>(0, null, niveaux);
-			} else {
-				List<String> messages = new ArrayList<>();
-				messages.add("Pas de niveau trouvée");
-				reponse = new Reponse<List<Niveau>>(1, messages, new ArrayList<>());
-			}
-		} catch (Exception e) {
-			reponse = new Reponse<List<Niveau>>(1, Static.getErreursForException(e), new ArrayList<>());
-		}
-		return reponse;
-
-	}
 
 }

@@ -14,8 +14,12 @@ public class AdministrateurMetierImpl implements IAdministrateurMetier {
 	@Autowired
 	PersonneRepository personneRepository;
 	@Override
-	public Personne creer(Personne entity) throws InvalideipmdException {
-		return personneRepository.save(entity);
+	public Personne creer(Personne p) throws InvalideipmdException {
+		if ((p.getLogin().equals(null)) || (p.getLogin() == "")) {
+			throw new InvalideipmdException("Le login ne peut etre null");
+		}
+		
+		return personneRepository.save(p);
 	}
 	@Override
 	public Personne modifier(Personne entity) throws InvalideipmdException {
